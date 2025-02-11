@@ -1,0 +1,23 @@
+{
+  "name": "create-class-test-app",
+  "version": "1.0.0",
+  "bin": {
+    "create-class-test-app": "./index.js"
+  },
+  "files": [
+    "index.js",
+    "readme.md",
+    "templates/"
+  ],
+  "main": "index.js",
+  "scripts": {
+    "fs": "node fs",
+    "path": "node path",
+    "start": "node index.js",
+    "win-test": "set TEST=1 && node ./ "
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}
