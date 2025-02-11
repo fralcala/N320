@@ -1,11 +1,23 @@
 const path = require("path");
 const fs = require("fs");
-const readLine = require("readLine");
+const readline = require("readline");
 
-const app = readLine.createInterface({
+const app = readline.createInterface({
   output: process.stdout,
   input: process.stdin,
 });
+
+function includeFunctionFolder(callback) {
+  app.question("Include functions (Y/n:", function (userAnswer) {
+    const cleanedAnswer = userAnswer.trim().toLowerCase();
+    if (userAnswer === "y" || !userAnswer) {
+      // do this
+      callback();
+    } else {
+      includeFunctionFolder(callback);
+    }
+  });
+}
 
 app.question("Name of project:", function (projectName) {
   const baseDirectory =
