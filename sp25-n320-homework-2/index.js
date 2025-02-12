@@ -7,18 +7,6 @@ const app = readline.createInterface({
   input: process.stdin,
 });
 
-// function includeFunctionFolder(callback) {
-//   app.question("Include functions (Y/n:", function (userAnswer) {
-//     const cleanedAnswer = userAnswer.trim().toLowerCase();
-//     if (userAnswer === "y" || !userAnswer) {
-//       // do this
-//       callback();
-//     } else {
-//       includeFunctionFolder(callback);
-//     }
-//   });
-// }
-
 app.question("Name of project:", function (projectName) {
   // const baseDirectory =
   //   process.env.TEST === "1" ? path.resolve("output") : process.cwd();
@@ -36,5 +24,22 @@ app.question("Name of project:", function (projectName) {
 
   fs.writeFileSync(readmeFile, "## Project Name");
 
-  app.close();
+  app.question(
+    "Would you like to add a styles folder? (Y/N)",
+    function (userAnswer) {
+      if (userAnswer === "Y") {
+        const stylesDirectory = path.join(projectDirectory, "styles");
+
+        if (!fs.existsSync(stylesDirectory)) {
+          fs.mkdirSync(stylesDirectory);
+        }
+
+        console.log("Styles folder created");
+        app.close();
+      } else {
+        console.log("Ok, no styles :(");
+        app.close();
+      }
+    }
+  );
 });

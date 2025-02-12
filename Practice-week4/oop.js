@@ -1,4 +1,11 @@
+function addLineBreaks(lineBreakCount = 1) {
+  for (let i = 0; i < lineBreakCount; i++) {
+    console.log(``);
+  }
+}
+
 class Book {
+  #owner = "";
   pages = 0;
 
   constructor(pages = 0) {
@@ -33,7 +40,17 @@ console.log("My book getPageCount: ", myBook.getPageCount());
 
 addLineBreaks(2);
 
+console.log("Encapsulation");
+
 console.log("My book owner (directly):", myBook.owner);
+
+myBook.setNewOwner("ty");
+
+console.log("My book's author:", myBook.getOwner);
+
+addLineBreaks(2);
+
+abstr makes more complecated code private so they are not directly acceds 
 
 class FictionalBook extends Book {
   getFictionalParts() {

@@ -1,0 +1,19 @@
+{
+  "name": "creating-proj",
+  "version": "0.1.0",
+  "bin": {
+    "creating-proj": "./index.js"
+  },
+  "files": [
+    "index.js",
+    "readme.md"
+  ],
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}
