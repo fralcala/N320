@@ -1,22 +1,36 @@
-function getApiData() {
-  console.log("getting API Data");
-  const apiFetchResp = await fetch(`https://digimon-api.vercel.app/api/digimon`)
-  console.log("API Response", apiFetchResp);
-    .then(function (resp) {
-      console.log("API Response:", resp);
-      return resp.json();
-    })
-      .then(function (resp) {
-        console.log("API JSON", resp);
-      })
-      .catch(function (err) {
-        console.log("API ERROR", err);
-      })
-      .finally(function () {});
+async function getApiData() {
+  console.log("Getting API Data");
+
+  try {
+    const apiFetchResp = await fetch(
+      `https://digimon-api.vercel.app/api/digimon`
+    );
+    console.log("API Response", apiFetchResp);
+
+    const apiJsonResp = await apiFetchResp.json();
+    console.log("API JSON", apiJsonResp[0]);
+  } catch (err) {
+    console.log("API ERROR", err);
+  }
+
   console.log("API Done");
+
+  // fetch(`https://digimon-api.vercel.app/api/digimon`)
+  //   .then(function (resp) {
+  //     console.log("API Response:", resp);
+  //     return resp.json();
+  //   })
+  //   .then(function (resp) {
+  //     console.log("API JSON", resp[0]);
+  //   })
+  //   .catch(function (err) {
+  //     console.log("API ERROR", err);
+  //   })
+  //   .finally(function () {});
+  // console.log("API Done");
 }
 
-// getApiData();
+getApiData();
 
 function getSlowResource() {
   return new Promise(function (resolve, reject) {
@@ -33,5 +47,12 @@ function getSlowResource() {
 function run() {
   console.log("Attempt Resource Load");
   getSlowResource(3000)
-  .then((resp) => )
+    .then((resp) => {
+      console.log("Resource Loaded:", resp);
+    })
+    .catch((err) => {
+      console.log("Resource Load Unsuccessful", err);
+    });
 }
+
+// run();
