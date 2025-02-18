@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 const path = require("path");
 const fs = require("fs");
 const readline = require("readline");
@@ -7,34 +9,54 @@ const app = readline.createInterface({
   input: process.stdin,
 });
 
-// function includeFunctionFolder(callback) {
-//   app.question("Include functions (Y/n:", function (userAnswer) {
-//     const cleanedAnswer = userAnswer.trim().toLowerCase();
-//     if (userAnswer === "y" || !userAnswer) {
-//       // do this
-//       callback();
-//     } else {
-//       includeFunctionFolder(callback);
-//     }
-//   });
-// }
+function quitApp() {
+  app.close();
+}
+
+function includeFunctionsFolder(callback) {
+  app.question("Include functions (Y/n):", function (userAnswer) {
+    const cleanedAnswer = userAnswer.trim().toLowerCase();
+    if (userAnswer === "y" || !userAnswer) {
+      // do this
+      callback(true);
+    } else if (userAnswer === "n") {
+      // do this
+      callback(false);
+    } else {
+      includeFunctionsFolder(callback);
+    }
+  });
+}
 
 app.question("Name of project:", function (projectName) {
-  // const baseDirectory =
-  //   process.env.TEST === "1" ? path.resolve("output") : process.cwd();
-  const projectDirectory = path.join("output", projectName);
+  const baseDirectory =
+    process.env.TEST === "1" ? path.resolve("output") : process.cwd();
+  const projectDirectory = path.join(baseDirectory, projectName);
   const functionsDirectory = path.join(projectDirectory, "functions");
-  const readmeFile = path.join(projectDirectory, "README.md");
+  const readmeFile = path.join(projectDirectory, "readme.md");
 
   if (!fs.existsSync(projectDirectory)) {
     fs.mkdirSync(projectDirectory);
   }
 
-  if (!fs.existsSync(functionsDirectory)) {
-    fs.mkdirSync(functionsDirectory);
-  }
+  includeFunctionsFolder(function (makeFunctionsFolder) {
+    if (makeFunctionsFolder) {
+      fs.mkdirSync(functionsDirectory);
 
-  fs.writeFileSync(readmeFile, "## Project Name");
+      const webfileLibRef = path.join(__dirname, "lib/webfile.js");
+      fs.writeFileSync(
+        path.join(functionsDirectory, "webfile.js"),
+        fs.readFileSync(webfileLibRef)
+      );
 
-  app.close();
+      const serverLibRef = path.join(__dirname, "lib/server.js");
+      fs.writeFileSync(
+        path.join(projectDirectory, "server.js"),
+        fs.readFileSync(serverLibRef)
+      );
+    }
+
+    fs.writeFileSync(readmeFile, "## Project Name");
+    quitApp();
+  });
 });
