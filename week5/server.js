@@ -4,13 +4,14 @@ const path = require("path");
 
 const WebFile = require("./functions/webfile");
 /**
- * @param {http.ClientRequest}req
+ * @param {http.ClientRequestArgs}req
  * @param {http.ServerResponse} res
  */
 function app(req, res) {
-  const fileReq = new WebFile("style.css");
+  const fileReq = new WebFile("style.pdf");
   res.writeHead(200, { "Content-Type": "text/html" });
   res.write("<h2>Hi there, partner 🤠!</h2>");
+  res.write(`<p>File Requested: ${req.url}</p>`);
   res.write(`<p>${fileReq.getMimeType()}</p>`);
   res.end();
 }

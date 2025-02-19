@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body>
+    <div class="wrapper" id="wrapper">
+      <nav>
+        <ul>
+          <li><a href="/">Home</a></li>
+          <li><a href="/about">About</a></li>
+        </ul>
+      </nav>
+      <h1>Home</h1>
+      <p>This is the home page</p>
+      <iframe
+        width="420"
+        height="315"
+        title="YouTube video player"
+        src="https://www.youtube.com/embed/hvL1339luv0?si=qp7cgDakd7WGC6GR&autoplay=1&mute=1"
+      >
+      </iframe>
+      <p class="buttonInfo">
+        *This button changes the background to a random color
+      </p>
+      <button id="colorChange" onclick="colorChange()">
+        Change Background Color
+      </button>
+    </div>
+    <script src="js/script.js"></script>
+  </body>
+</html>
